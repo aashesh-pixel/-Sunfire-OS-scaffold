@@ -1,0 +1,21 @@
+[Unit]
+Description=Sunfire OS Telemetry API
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+Environment=PORT=8080
+EnvironmentFile=-/etc/sunfire/telemetry.env
+ExecStart=/usr/bin/node /opt/sunfire/services/api/server.mjs
+Restart=on-failure
+User=sunfire
+Group=sunfire
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/sunfire
+
+[Install]
+WantedBy=multi-user.target

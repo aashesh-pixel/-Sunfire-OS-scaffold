@@ -1,0 +1,31 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: sunfire
+      POSTGRES_USER: sunfire
+      POSTGRES_PASSWORD: sunfire_dev
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./database/schema.sql:/docker-entrypoint-initdb.d/001-schema.sql:ro
+      - sunfire-postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U sunfire -d sunfire"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  api:
+    build: .
+    environment:
+      PORT: "8080"
+      DATABASE_URL: postgres://sunfire:sunfire_dev@postgres:5432/sunfire
+    ports:
+      - "8080:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  sunfire-postgres:

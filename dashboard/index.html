@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sunfire OS Telemetry</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <main class="shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Sunfire OS</p>
+          <h1>Telemetry State</h1>
+        </div>
+        <button id="refresh" type="button">Refresh</button>
+      </header>
+
+      <section class="status-grid" id="status-grid" aria-live="polite"></section>
+
+      <section class="insight-grid">
+        <article class="insight-panel">
+          <div class="panel-heading">
+            <h2>AI Insights</h2>
+            <span id="agent-risk" class="status-pill">Pending</span>
+          </div>
+          <p id="agent-summary" class="summary-text">Waiting for telemetry.</p>
+          <ul id="agent-findings" class="finding-list"></ul>
+        </article>
+
+        <article class="insight-panel">
+          <div class="panel-heading">
+            <h2>Evidence</h2>
+            <span id="evidence-risk" class="status-pill">Pending</span>
+          </div>
+          <dl class="evidence-list">
+            <div>
+              <dt>SBOM</dt>
+              <dd id="sbom-status">Pending</dd>
+            </div>
+            <div>
+              <dt>Security Scan</dt>
+              <dd id="security-status">Pending</dd>
+            </div>
+            <div>
+              <dt>Python Demo SBOM</dt>
+              <dd id="python-sbom-status">Optional</dd>
+            </div>
+          </dl>
+        </article>
+      </section>
+
+      <section class="history-panel">
+        <h2>Recent Events</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Signal</th>
+              <th>Value</th>
+              <th>Source</th>
+              <th>Observed</th>
+            </tr>
+          </thead>
+          <tbody id="history"></tbody>
+        </table>
+      </section>
+    </main>
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>

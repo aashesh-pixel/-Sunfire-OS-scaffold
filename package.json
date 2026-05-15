@@ -1,0 +1,20 @@
+{
+  "name": "sunfire-os",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Phase 1 scaffold for read-only Ardun-style vehicle telemetry ingestion, display, and evidence generation.",
+  "scripts": {
+    "start": "node services/api/server.mjs",
+    "live:demo": "python demos/phase1_live_demo.py",
+    "mock:feed": "node services/mock-feed/mock-feed.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "sbom": "node scripts/generate-sbom.mjs",
+    "security:scan": "node scripts/security-scan.mjs",
+    "evidence": "npm run sbom && npm run security:scan"
+  },
+  "dependencies": {
+    "pg": "^8.13.1"
+  },
+  "devDependencies": {}
+}
