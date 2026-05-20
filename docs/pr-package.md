@@ -2,22 +2,23 @@
 
 ## Title
 
-Phase 1 Milestone 2: add read-only AI insight agents and evidence dashboard
+Phase 1 scaffold: mock telemetry ingest, dashboard, and evidence package
 
 ## Summary
 
-- Add read-only AI insight agents for telemetry, anomaly detection, security evidence, and demo narration.
-- Add API routes for agent summaries and evidence status.
-- Add dashboard panels for AI insights and SBOM/security evidence.
-- Add PostgreSQL proof script for Docker-based end-to-end validation.
-- Add tests and documentation for Milestone 2.
+- Create the Sunfire OS Phase 1 scaffold for mock ARDUN/VSS signal ingestion, normalization, storage, dashboard display, and evidence generation.
+- Keep all adapter, API, dashboard, and agent behavior read-only from a vehicle perspective.
+- Add API fail-closed handling for malformed JSON request bodies.
+- Include tests, documentation, SBOM/security evidence scripts, AGL preparation artifacts, and reviewer notes.
 
 ## Tests
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File scripts\run-tests.ps1
-powershell -ExecutionPolicy Bypass -File scripts\generate-evidence.ps1
+npm.cmd test
+npm.cmd run evidence
 ```
+
+Latest local result on 2026-05-20: 17 tests passed, SBOM generated, and the Phase 1 security scan passed.
 
 ## PostgreSQL Proof
 
@@ -29,10 +30,14 @@ powershell -ExecutionPolicy Bypass -File scripts\prove-postgres.ps1
 
 ## Safety
 
-- Agents are read-only.
+- Adapters, API routes, dashboard, and agents are read-only.
 - Agent endpoints summarize, classify, and recommend human review only.
 - No vehicle control, actuator behavior, production OTA, or firmware update behavior was added.
 
 ## Reviewer Notes
 
-Claude Code was requested in the project instructions, but it was not available as a callable tool in this environment. Use `docs/reviewer-notes.md` for manual second-review coverage if Claude Code remains unavailable.
+Claude Code was requested in the project instructions, but `claude` was not available on PATH in this environment. Manual second-review coverage is recorded in `docs/reviewer-notes.md`.
+
+## PR Status
+
+This checkout does not have a Git remote configured, so Codex could not push a branch or open a pull request from the local environment. Use this package as the PR title/body once a remote is added.

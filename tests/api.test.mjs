@@ -44,6 +44,23 @@ test("rejects unsupported signal at API boundary", async () => {
   await close(server);
 });
 
+test("rejects malformed JSON at API boundary", async () => {
+  const server = await createSunfireServer({ repository: new InMemoryTelemetryRepository() });
+  await listen(server);
+
+  const response = await fetch(`${serverBaseUrl(server)}/signals`, {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: "{not-json"
+  });
+  const body = await response.json();
+
+  assert.equal(response.status, 400);
+  assert.equal(body.error, "Request body must be valid JSON.");
+
+  await close(server);
+});
+
 test("serves read-only agent and evidence endpoints", async () => {
   const server = await createSunfireServer({ repository: new InMemoryTelemetryRepository() });
   await listen(server);

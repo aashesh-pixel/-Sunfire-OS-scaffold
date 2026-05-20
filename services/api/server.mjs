@@ -25,6 +25,10 @@ export async function createSunfireServer(options = {}) {
     try {
       await routeRequest(request, response, repository);
     } catch (error) {
+      if (error instanceof ApiRequestError) {
+        return sendJson(response, error.statusCode, { error: error.message });
+      }
+
       if (error instanceof AdapterValidationError) {
         return sendJson(response, 400, { error: error.message, details: error.details });
       }
@@ -40,6 +44,14 @@ export async function createSunfireServer(options = {}) {
 
 export function isMainModule(moduleUrl, argvPath) {
   return Boolean(argvPath) && fileURLToPath(moduleUrl) === resolve(argvPath);
+}
+
+class ApiRequestError extends Error {
+  constructor(statusCode, message) {
+    super(message);
+    this.name = "ApiRequestError";
+    this.statusCode = statusCode;
+  }
 }
 
 async function routeRequest(request, response, repository) {
@@ -115,7 +127,11 @@ async function readJson(request) {
     return {};
   }
 
-  return JSON.parse(Buffer.concat(chunks).toString("utf8"));
+  try {
+    return JSON.parse(Buffer.concat(chunks).toString("utf8"));
+  } catch {
+    throw new ApiRequestError(400, "Request body must be valid JSON.");
+  }
 }
 
 function sendJson(response, statusCode, body) {

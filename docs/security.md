@@ -1,6 +1,7 @@
 # Security and Safety Boundaries
 
 Phase 1 treats all ARDUN-style signal input as untrusted data. The adapter validates signal name, value type, accepted range, and timestamp before storage.
+Malformed JSON request bodies are rejected at the API boundary with `400 Bad Request` before adapter normalization.
 
 ## Read-Only Rule
 
