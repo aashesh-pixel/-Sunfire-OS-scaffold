@@ -40,4 +40,4 @@ Claude Code was requested in the project instructions, but `claude` was not avai
 
 ## PR Status
 
-This checkout does not have a Git remote configured, so Codex could not push a branch or open a pull request from the local environment. Use this package as the PR title/body once a remote is added.
+Branch `codex/sunfire-os-phase-1` has been pushed to `aashesh-pixel/-Sunfire-OS-scaffold`. Use this package as the PR title/body.
